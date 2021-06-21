@@ -1,0 +1,31 @@
+from tkinter import *
+import tkinter as tk
+from pytube import YouTube
+master = tk.Tk()
+master.geometry("600x800")
+master.configure(bg='brown1')
+#----------------------------------------------------------#
+URL=tk.StringVar()
+def download():
+    Url=URL.get()
+    video = YouTube(Url)
+    stream = video.streams.get_by_itag(251)
+    #251 <--this itag value is for WEBM FILE Pytube doesn't suport mp3
+    #if you want to download mp4 version simple change itag value
+    #360p resolution istag value is 18
+    #720p resolution istag value is 22
+    #1080p resolution istag value is 37
+    
+    stream.download()
+    video_streams.download(output_path = "Downloads")
+    print("downloaded")
+    messagebox.showinfo("showinfo", "DOWNLOADED")
+#----------------------------------------------------------#
+myFont = font.Font(family='Lucida Grande',size='13')
+button1=tk.Button(master, text="Download", activebackground='lemon chiffon',font=myFont,command = download)
+button1.place(x=220, y=500)
+Urlmessage= Label(master, text = "Enter Youtube Video URL",bg='brown1',fg='white',font=myFont).place(x = 120, y = 200)
+InputURL = tk.Entry(master,textvariable = URL ,highlightcolor='sky blue',font=myFont).place(x = 120, y = 300)
+
+master.mainloop()
+
